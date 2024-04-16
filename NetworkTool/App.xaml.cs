@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace MainApp
+namespace NetworkTool
 {
     /// <summary>
     /// Interaction logic for App.xaml

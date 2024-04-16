@@ -1,0 +1,68 @@
+﻿<Window x:Class="NetworkTool.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:NetworkTool.Windows"
+        mc:Ignorable="d"
+        
+        Title="NetworkTools" 
+        Height="450" 
+        Width="800"
+        MinHeight="200"
+        MinWidth="510">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="196px"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <hc:SideMenu
+            SelectionChanged="SideMenu_SelectionChanged"
+            AutoSelect="True">
+            <hc:SideMenuItem
+                Header="Ping">
+                <hc:SideMenuItem.Icon>
+                    p
+                </hc:SideMenuItem.Icon>
+            </hc:SideMenuItem>
+            <hc:SideMenuItem
+                Header="Traceroute">
+                <hc:SideMenuItem.Icon>
+                    t
+                </hc:SideMenuItem.Icon>
+            </hc:SideMenuItem>
+            <hc:SideMenuItem Header="SpeedTest">
+                <hc:SideMenuItem.Icon>
+                    s
+                </hc:SideMenuItem.Icon>
+            </hc:SideMenuItem>
+        </hc:SideMenu>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30px"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <DockPanel>
+                <Label Content="{Binding ElementName=MainFrame, Path=Content.Title}"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"
+                       BorderBrush="Transparent"
+                       FontFamily="ALS Gorizont Expanded"
+                       FontSize="14" />
+            </DockPanel>
+            
+
+            <Frame Grid.Row="1"
+                   Name="MainFrame"
+                   BorderBrush="Transparent"
+                   NavigationUIVisibility="Hidden" />
+        </Grid>
+
+        
+    </Grid>
+</Window>

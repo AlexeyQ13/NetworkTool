@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 
-namespace MainApp.Classes
+namespace NetworkTool.Classes
 {
     class TraceRoute
     {

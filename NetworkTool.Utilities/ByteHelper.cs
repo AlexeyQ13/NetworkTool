@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MainApp.Classes
+namespace NetworkTool.Utilities
 {
-    public class ByteHelper
+    public static class ByteHelper
     {
         public static int Compare(byte[] x, byte[] y)
         {

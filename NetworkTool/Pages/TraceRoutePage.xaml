@@ -1,0 +1,68 @@
+﻿<Page x:Class="NetworkTool.Pages.TraceRoutePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:NetworkTool.Pages"
+      mc:Ignorable="d"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      d:Background="White"
+      Title="TraceRoute">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="100px" />
+        </Grid.RowDefinitions>
+
+        <!-- Окно вывода результата -->
+
+        <hc:TextBox x:Name="outputTextBox"
+                    FontFamily="Lucida Console"
+                    IsReadOnly="True"
+                    Grid.Row="0"
+                    Margin="8,8,8,8"
+                    Padding="8"
+                    VerticalContentAlignment="Top" />
+
+        <!--Нижняя панель-->
+        
+        <StackPanel Grid.Row="1"
+                    Margin="8,0,8,8">
+            <DockPanel>
+                <hc:Row Gutter="16">
+                    <hc:Col Span="12">
+                        <!-- Ввод адреса -->
+                        <hc:TextBox x:Name="ipTextBox"
+                                    MaxLines="1"
+                                    hc:TitleElement.Title="Адрес" />
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <!-- Ввод таймаута -->
+                        <hc:TextBox x:Name="timeoutTextBox"
+                                    MaxLines="1"
+                                    Text="1000"
+                                    hc:TitleElement.Title="Таймаут (мс)" />
+                    </hc:Col>
+                    <hc:Col Span="6">
+                        <!-- Ввод таймаута -->
+                        <hc:TextBox x:Name="ttlTextBox"
+                                    Text="30"
+                                    MaxLines="1"
+                                    hc:TitleElement.Title="Кол-во прыжков" />
+                    </hc:Col>
+                </hc:Row>
+            </DockPanel>
+
+            <Button x:Name="pingButton"
+                    Click="pingButton_Click"
+                    Style="{DynamicResource ButtonPrimary}"
+                    Content="Запуск"
+                    IsDefault="True"
+                    Margin="0,8,0,0"
+                    HorizontalAlignment="Stretch" />
+        </StackPanel>
+    </Grid>
+</Page>

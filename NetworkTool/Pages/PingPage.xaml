@@ -1,0 +1,53 @@
+﻿<Page x:Class="NetworkTool.Pages.PingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NetworkTool.Pages"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      mc:Ignorable="d"
+      
+      d:DesignHeight="450" d:DesignWidth="800"
+      d:Background="White"
+      Title="Ping">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100px"/>
+        </Grid.RowDefinitions>
+        
+        <!--Верхняя панель-->
+
+        <DockPanel Margin="8,8,8,8"
+                   Grid.Row="0">
+            
+            <!-- Вывод результата -->
+            <TextBox Name="outputTextBox"
+                     FontFamily="Lucida Console"
+                     IsReadOnly="True"
+                     Padding="8"
+                     VerticalContentAlignment="Top" />
+        </DockPanel>
+
+        <!--Нижняя панель-->
+
+        <StackPanel Grid.Row="1"
+                    Margin="8,0,8,8">
+            
+            <!-- Ввод адреса -->
+                <hc:TextBox x:Name="ipTextBox"
+                            MaxLines="1"
+                            hc:TitleElement.Title="Адрес" />
+
+                <Button x:Name="pingButton"
+                    Click="pingButton_Click"
+                    Style="{DynamicResource ButtonPrimary}"
+                    Content="Запуск"
+                    IsDefault="True"
+                    Margin="0,8,0,0"
+                    HorizontalAlignment="Stretch" />
+        </StackPanel>
+
+    </Grid>
+</Page>

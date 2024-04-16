@@ -13,9 +13,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MainApp.Classes;
+using HandyControl.Controls;
+using NetworkTool.Classes;
+using NetworkTool.Utilities;
 
-namespace MainApp.Pages
+namespace NetworkTool.Pages
 {
     /// <summary>
     /// Логика взаимодействия для TraceRoutePage.xaml
