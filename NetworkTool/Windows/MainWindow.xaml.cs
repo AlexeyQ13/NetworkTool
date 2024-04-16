@@ -12,6 +12,7 @@ public partial class MainWindow : Window
 {
     private PingPage? _pingPage;
     private TraceRoutePage? _traceRoutePage;
+    private SpeedTestPage? _speedTestPage;
 
     public MainWindow()
     {
@@ -32,6 +33,10 @@ public partial class MainWindow : Window
             case "Ping":
                 _pingPage ??= new PingPage();
                 MainFrame.Navigate(_pingPage);
+                break;
+            case "SpeedTest":
+                _speedTestPage ??= new SpeedTestPage();
+                MainFrame.Navigate(_speedTestPage);
                 break;
         }
     }
