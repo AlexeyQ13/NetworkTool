@@ -1,65 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Markup;
 
-namespace NetworkTool.Classes
+namespace NetworkTool.Classes;
+
+internal class TraceRoute
 {
-    class TraceRoute
+    private readonly IPAddress _destinationIpAddress;
+    private readonly int _timeout;
+    private readonly int _maxHops;
+
+    private static readonly byte[] Buffer = Encoding.ASCII.GetBytes("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+    public event EventHandler<TraceRouteHop>? HopReceived;
+
+    public TraceRoute(IPAddress destinationIpAddress, int maxHops = 30, int timeout = 10000)
     {
-        private IPAddress _destinationIPAddress;
-        private int _timeout;
-        private int _maxHops;
+        _destinationIpAddress = destinationIpAddress;
+        _timeout = timeout;
+        _maxHops = maxHops;
+    }
 
-        private static byte[] _buffer = Encoding.ASCII.GetBytes("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    private async Task<TraceRouteHop> TraceRouteAsync(int ttl)
+    {
+        var ping = new Ping();
 
-        public event EventHandler<TraceRouteHop>? HopReceived;
-
-        public TraceRoute(IPAddress destinationIPAddress, int maxHops = 30, int timeout = 10000)
+        var pingOptions = new PingOptions
         {
-            _destinationIPAddress = destinationIPAddress;
-            _timeout = timeout;
-            _maxHops = maxHops;
-        }
+            Ttl = ttl
+        };
 
-        private async Task<TraceRouteHop> TraceRouteAsync(int ttl)
+        var response = await ping.SendPingAsync(_destinationIpAddress, _timeout, Buffer, pingOptions);
+
+        return new TraceRouteHop
         {
-            Ping ping = new Ping();
+            Ttl = ttl,
+            IpAddress = response.Address,
+            RoundTripTime = response.RoundtripTime,
+            Status = response.Status
+        };
+    }
 
-            PingOptions pingOptions = new PingOptions
-            {
-                Ttl = ttl,
-            };
-
-            PingReply response = await ping.SendPingAsync(_destinationIPAddress, _timeout, _buffer, pingOptions);
-
-            return new TraceRouteHop
-            {
-                TTL = ttl,
-                IPAddress = response.Address,
-                RoundTripTime = response.RoundtripTime,
-                Status = response.Status,
-            };
-        }
-
-        public async Task Trace()
+    public async Task Trace()
+    {
+        for (var ttl = 1; ttl <= _maxHops; ttl++)
         {
-            for (int ttl = 1; ttl <= _maxHops; ttl++)
-            {
-                TraceRouteHop hop = await TraceRouteAsync(ttl);
-                Task.WaitAll();
-                HopReceived?.Invoke(this, hop);
-                
-                if (IPAddress.Equals(hop.IPAddress, _destinationIPAddress))
-                {
-                    break;
-                }
+            var hop = await TraceRouteAsync(ttl);
+            Task.WaitAll();
+            HopReceived?.Invoke(this, hop);
 
-            }
+            if (Equals(hop.IpAddress, _destinationIpAddress)) break;
         }
     }
 }

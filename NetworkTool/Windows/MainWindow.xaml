@@ -4,32 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:hc="https://handyorg.github.io/handycontrol"
-        xmlns:local="clr-namespace:NetworkTool.Windows"
         mc:Ignorable="d"
-        
-        Title="NetworkTools" 
-        Height="450" 
+        Title="NetworkTools"
+        Height="450"
         Width="800"
         MinHeight="200"
         MinWidth="510">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="196px"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="196px" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <hc:SideMenu
-            SelectionChanged="SideMenu_SelectionChanged"
-            AutoSelect="True">
-            <hc:SideMenuItem
-                Header="Ping">
+        <hc:SideMenu Grid.Column="0"
+                     SelectionChanged="SideMenu_SelectionChanged"
+                     AutoSelect="True">
+            <hc:SideMenuItem Header="Ping">
                 <hc:SideMenuItem.Icon>
                     p
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
-            <hc:SideMenuItem
-                Header="Traceroute">
+            <hc:SideMenuItem Header="Traceroute">
                 <hc:SideMenuItem.Icon>
                     t
                 </hc:SideMenuItem.Icon>
@@ -43,26 +39,23 @@
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30px"/>
+                <RowDefinition Height="30px" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
             <DockPanel>
-                <Label Content="{Binding ElementName=MainFrame, Path=Content.Title}"
+                <Label Content="{Binding ElementName=MainFrame, Path=Content.(Page.Title)}"
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch"
                        BorderBrush="Transparent"
                        FontFamily="ALS Gorizont Expanded"
                        FontSize="14" />
             </DockPanel>
-            
 
             <Frame Grid.Row="1"
                    Name="MainFrame"
                    BorderBrush="Transparent"
                    NavigationUIVisibility="Hidden" />
         </Grid>
-
-        
     </Grid>
 </Window>

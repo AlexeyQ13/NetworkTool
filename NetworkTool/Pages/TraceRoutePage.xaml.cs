@@ -1,84 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using HandyControl.Controls;
 using NetworkTool.Classes;
 using NetworkTool.Utilities;
 
-namespace NetworkTool.Pages
+namespace NetworkTool.Pages;
+
+/// <summary>
+/// Логика взаимодействия для TraceRoutePage.xaml
+/// </summary>
+public partial class TraceRoutePage
 {
-    /// <summary>
-    /// Логика взаимодействия для TraceRoutePage.xaml
-    /// </summary>
-    public partial class TraceRoutePage : Page
+    public TraceRoutePage()
     {
-        public TraceRoutePage()
+        InitializeComponent();
+    }
+
+    private void PingButton_Click(object sender, RoutedEventArgs e)
+    {
+        var ipAddressTextBox = IpTextBox.Text;
+        var timeout = int.Parse(TimeoutTextBox.Text);
+        var maxTtl = int.Parse(TtlTextBox.Text);
+
+        if (!IPAddressHelper.ValidateIP(ipAddressTextBox))
         {
-            InitializeComponent();
+            HandyControl.Controls.MessageBox.Show("Ошибка IPAddress адреса");
+            IpTextBox.Text = string.Empty;
+            IpTextBox.Focus();
+            return;
         }
 
-        private void pingButton_Click(object sender, RoutedEventArgs e)
+        var ipAddress = IPAddress.Parse(ipAddressTextBox);
+
+        var route = new TraceRoute(
+            ipAddress,
+            timeout: timeout,
+            maxHops: maxTtl
+        );
+        route.HopReceived += RouteHopReceived;
+        Task.Run(() =>
         {
-            var ipAddressTextBox = ipTextBox.Text;
-            int timeout = int.Parse(timeoutTextBox.Text);
-            int maxTtl = int.Parse(ttlTextBox.Text);
+            var task = route.Trace();
+            task.Wait();
+        });
+    }
 
-            if (!IPAddressHelper.ValidateIP(ipAddressTextBox))
-            {
-                HandyControl.Controls.MessageBox.Show("Ошибка IPAddress адреса");
-                ipTextBox.Text = string.Empty;
-                ipTextBox.Focus();
-                return;
-            }
+    private void RouteHopReceived(object? sender, TraceRouteHop e)
+    {
+        WriteOutput($"{e.Ttl}\t{e.IpAddress}\t\t\t{e.RoundTripTime} мс");
+    }
 
-            var ipAddress = IPAddress.Parse(ipAddressTextBox);
-            //using (Ping ping = new Ping())
-            //{
-            //    await Task.Run(() =>
-            //    {
-            //        PingReply response = ping.Send(ipAddress, 8000);
-            //        WriteOutput($"IPAddress: {response.Address} | Статус: {response.Status} | Время: {response.RoundtripTime} мс");
-
-            //    });
-            //}
-
-            TraceRoute route = new TraceRoute(
-                destinationIPAddress: ipAddress,
-                timeout: timeout,
-                maxHops: maxTtl
-            );
-            route.HopReceived += RouteHopReceived;
-            Task.Run(() =>
-            {
-                Task task = route.Trace();
-                task.Wait();
-            });
-            
-        }
-
-        private void RouteHopReceived(object? sender, TraceRouteHop e)
-        {
-            WriteOutput($"{e.TTL}\t{e.IPAddress}\t\t\t{e.RoundTripTime} мс");
-        }
-
-        private void WriteOutput(string text)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                outputTextBox.AppendText(text + Environment.NewLine);
-            });
-        }
+    private void WriteOutput(string text)
+    {
+        Dispatcher.Invoke(() => { OutputTextBox.AppendText(text + Environment.NewLine); });
     }
 }

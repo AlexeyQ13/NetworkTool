@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:hc="https://handyorg.github.io/handycontrol"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:NetworkTool.Pages"
       mc:Ignorable="d"
       d:DesignHeight="450"
       d:DesignWidth="800"
@@ -19,7 +18,7 @@
 
         <!-- Окно вывода результата -->
 
-        <hc:TextBox x:Name="outputTextBox"
+        <hc:TextBox x:Name="OutputTextBox"
                     FontFamily="Lucida Console"
                     IsReadOnly="True"
                     Grid.Row="0"
@@ -28,27 +27,27 @@
                     VerticalContentAlignment="Top" />
 
         <!--Нижняя панель-->
-        
+
         <StackPanel Grid.Row="1"
                     Margin="8,0,8,8">
             <DockPanel>
                 <hc:Row Gutter="16">
                     <hc:Col Span="12">
                         <!-- Ввод адреса -->
-                        <hc:TextBox x:Name="ipTextBox"
+                        <hc:TextBox x:Name="IpTextBox"
                                     MaxLines="1"
                                     hc:TitleElement.Title="Адрес" />
                     </hc:Col>
                     <hc:Col Span="6">
                         <!-- Ввод таймаута -->
-                        <hc:TextBox x:Name="timeoutTextBox"
+                        <hc:TextBox x:Name="TimeoutTextBox"
                                     MaxLines="1"
                                     Text="1000"
                                     hc:TitleElement.Title="Таймаут (мс)" />
                     </hc:Col>
                     <hc:Col Span="6">
                         <!-- Ввод таймаута -->
-                        <hc:TextBox x:Name="ttlTextBox"
+                        <hc:TextBox x:Name="TtlTextBox"
                                     Text="30"
                                     MaxLines="1"
                                     hc:TitleElement.Title="Кол-во прыжков" />
@@ -56,8 +55,8 @@
                 </hc:Row>
             </DockPanel>
 
-            <Button x:Name="pingButton"
-                    Click="pingButton_Click"
+            <Button x:Name="PingButton"
+                    Click="PingButton_Click"
                     Style="{DynamicResource ButtonPrimary}"
                     Content="Запуск"
                     IsDefault="True"
