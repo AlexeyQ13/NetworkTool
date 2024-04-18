@@ -46,9 +46,17 @@ jobs:
     - name: Dotnet Build
       run: dotnet build
 
+    # Create release archive
     - name: Archive Release
       uses: thedoctor0/zip-release@0.7.5
       with:
         type: 'zip'
         filename: 'release.zip'
         exclusions: 'NetworkTool/bin/Release/*'
+
+
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      if: strategy.matrix.configuration == Release
+      with:
+          files: release.zip
