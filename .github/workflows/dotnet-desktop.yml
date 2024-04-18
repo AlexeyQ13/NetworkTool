@@ -45,3 +45,10 @@ jobs:
     # Dotnet build
     - name: Dotnet Build
       run: dotnet build
+
+    - name: Archive Release
+      uses: thedoctor0/zip-release@0.7.5
+      with:
+        type: 'zip'
+        filename: 'release.zip'
+        exclusions: 'NetworkTool/bin/Release/*'
