@@ -52,14 +52,13 @@ jobs:
 
     # Create release archive
     - name: Archive Release
+      if: matrix.configuration == 'Release'
       uses: thedoctor0/zip-release@0.7.5
       with:
         type: 'zip'
         filename: 'release.zip'
         path: 'NetworkTool/bin/Release'
         
-
-
     - name: Release
       uses: softprops/action-gh-release@v2
       if: matrix.configuration == 'Release'
