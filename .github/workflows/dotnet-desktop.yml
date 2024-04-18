@@ -56,7 +56,7 @@ jobs:
       with:
         type: 'zip'
         filename: 'release.zip'
-        path: 'NetworkTool/bin/Release/'
+        path: '/NetworkTool/bin/Release/'
 
 
     - name: Release
