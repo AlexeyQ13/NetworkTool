@@ -57,6 +57,6 @@ jobs:
 
     - name: Release
       uses: softprops/action-gh-release@v2
-      if: strategy.matrix.configuration == Release
+      if: strategy.matrix.configuration == "Release"
       with:
           files: release.zip
