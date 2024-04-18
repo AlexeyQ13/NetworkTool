@@ -60,3 +60,4 @@ jobs:
       if: matrix.configuration == 'Release'
       with:
           files: release.zip
+          tag_name: pre-release
