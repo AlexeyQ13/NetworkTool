@@ -51,7 +51,7 @@ jobs:
       run: dotnet build --configuration ${{matrix.configuration}}
 
     # Create release archive
-    - name: Archive Release
+    - name: Archive Release 
       if: matrix.configuration == 'Release'
       uses: thedoctor0/zip-release@0.7.5
       with:
