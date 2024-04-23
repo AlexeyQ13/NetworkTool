@@ -12,7 +12,7 @@ namespace NetworkTool.Utilities
         /// <summary>
         /// Объект WebClient используемый при тестировании
         /// </summary>
-        public WebClient WebClient { get; private set; }
+        public WebClient WebClient { get; set; }
 
         /// <summary>
         /// Запуск тестирования скорости

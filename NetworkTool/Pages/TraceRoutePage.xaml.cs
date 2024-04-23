@@ -15,13 +15,12 @@ public partial class TraceRoutePage
         InitializeComponent();
     }
 
-    private void PingButton_Click(object sender, RoutedEventArgs e)
+    private async void PingButton_Click(object sender, RoutedEventArgs e)
     {
-        var ipAddressTextBox = IpTextBox.Text;
         var timeout = int.Parse(TimeoutTextBox.Text);
         var maxTtl = int.Parse(TtlTextBox.Text);
 
-        if (!IPAddressHelper.ValidateIP(ipAddressTextBox))
+        if (!IPAddressHelper.ValidateIP(IpTextBox.Text))
         {
             HandyControl.Controls.MessageBox.Show("Ошибка IPAddress адреса");
             IpTextBox.Text = string.Empty;
@@ -29,10 +28,10 @@ public partial class TraceRoutePage
             return;
         }
 
-        var ipAddress = IPAddress.Parse(ipAddressTextBox);
+        var ip = IPAddress.Parse(IpTextBox.Text);
 
         var route = new TraceRoute(
-            ipAddress,
+            destinationIpAddress: ip,
             timeout: timeout,
             maxHops: maxTtl
         );
