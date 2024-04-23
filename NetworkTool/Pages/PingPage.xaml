@@ -40,7 +40,7 @@
                         hc:TitleElement.Title="Адрес" />
 
             <Button x:Name="PingButton"
-                    Click="pingButton_Click"
+                    Click="PingButton_Click"
                     Style="{DynamicResource ButtonPrimary}"
                     Content="Запуск"
                     IsDefault="True"

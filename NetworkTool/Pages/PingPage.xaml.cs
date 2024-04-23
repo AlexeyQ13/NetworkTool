@@ -14,7 +14,7 @@ public partial class PingPage
         InitializeComponent();
     }
 
-    private async void pingButton_Click(object sender, RoutedEventArgs e)
+    private async void PingButton_Click(object sender, RoutedEventArgs e)
     {
         var ip = IPAddress.Parse(IpTextBox.Text);
 
