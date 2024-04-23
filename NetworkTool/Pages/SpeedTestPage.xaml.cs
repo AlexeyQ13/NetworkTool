@@ -1,43 +1,30 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using SpeedTestSharp.Client;
-using SpeedTestSharp.Enums;
+using NetworkTool.Utilities;
 
-namespace NetworkTool.Pages
+namespace NetworkTool.Pages;
+
+/// <summary>
+///     Логика взаимодействия для SpeedTestPage.xaml
+/// </summary>
+public partial class SpeedTestPage : Page
 {
-    /// <summary>
-    /// Логика взаимодействия для SpeedTestPage.xaml
-    /// </summary>
-    public partial class SpeedTestPage : Page
+    public SpeedTestPage()
     {
-        public SpeedTestPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-/*        private async void StartSpeedTestButton_Click(object sender, RoutedEventArgs e)
-        {
-            var speedtestClient = new SpeedTestClient();
-            var result = await speedtestClient.TestSpeedAsync(SpeedUnit.MBps);
+    private async void RunButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var prevButtonText = RunButton.Content;
+        RunButton.IsEnabled = false;
+        RunButton.Content = "Ожидайте ...";
 
-            DownloadProgress.Value = 100;
-            UploadProgress.Value = 100;
+        var client = new SpeedTest();
+        await client.Start();
+        DownloadSpeedTextBlock.Text = $"{client.DownloadSpeed.ToString()} МБит/сек";
 
-            DownloadSpeed.Text = $"{result.DownloadSpeed} Мбит/с";
-            UploadSpeed.Text = $"{result.UploadSpeed} Мбит/с";
-        }*/
-
-        private async void RunButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var stClient = new SpeedTestClient();
-            stClient.ProgressChanged += (o, info) =>
-            {
-                Dispatcher.Invoke(() => Progress.Value += 1);
-                
-            };
-            var result = await stClient.TestSpeedAsync(SpeedUnit.Mbps);
-            DownloadSpeedTextBlock.Text = $"{result.DownloadSpeed} {result.SpeedUnit}";
-            UploadSpeedTextBlock.Text = $"{result.UploadSpeed} {result.SpeedUnit}";
-        }
+        RunButton.IsEnabled = true;
+        RunButton.Content = prevButtonText;
     }
 }

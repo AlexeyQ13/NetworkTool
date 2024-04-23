@@ -22,23 +22,11 @@
                                Text="--"/>
                 </StackPanel>
             </DockPanel>
-
-            <DockPanel Margin="8,0,0,0">
-                <StackPanel>
-                    <Label Content="Скорость выгрузки"
-                           BorderBrush="Transparent" />
-                    <TextBlock Name="UploadSpeedTextBlock"
-                               HorizontalAlignment="Center"
-                               Text="--" />
-                </StackPanel>
-            </DockPanel>
         </StackPanel>
-        <ProgressBar Name="Progress"
-                     Style="{StaticResource ProgressBarInfo}"
-                     Margin="0,0,0,16"/>
         <Button Name="RunButton"
                 Content="Запуск"
                 Style="{StaticResource ButtonPrimary}"
-                Click="RunButton_OnClick"/>
+                Click="RunButton_OnClick"
+                HorizontalAlignment="Stretch" />
     </StackPanel>
 </Page>
