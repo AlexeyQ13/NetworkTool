@@ -34,11 +34,18 @@ public class IPAddressHelper
         return IPAddress.Parse(response);
     }
 
+    public static async Task<IPAddress?> GetIpByDomain(string domain)
+    {
+        var host = await Dns.GetHostEntryAsync(domain);
+
+        return host.AddressList.Select(address => IPAddress.Parse(address.ToString())).FirstOrDefault();
+    }
+
     /* Проверка адреса на "вшивость" */
 
     public static bool ValidateIP(string ip)
     {
-        return Regex.IsMatch(ip, "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}$");
+        return Regex.IsMatch(ip, RegexHelper.IPv4AddressRegex) || Regex.IsMatch(ip, RegexHelper.DomainRegex);
     }
 
     /* Сравнение двух адресов */
