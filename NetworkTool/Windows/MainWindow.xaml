@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="NetworkTools"
         Height="450"
@@ -13,7 +14,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="196px" />
+            <ColumnDefinition Width="150px" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -22,17 +23,17 @@
                      AutoSelect="True">
             <hc:SideMenuItem Header="Ping">
                 <hc:SideMenuItem.Icon>
-                    p
+                    <iconPacks:PackIconMaterial Kind="Signal" />
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
             <hc:SideMenuItem Header="Traceroute">
                 <hc:SideMenuItem.Icon>
-                    t
+                    <iconPacks:PackIconMaterial Kind="MapSearchOutline" />
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
             <hc:SideMenuItem Header="SpeedTest">
                 <hc:SideMenuItem.Icon>
-                    s
+                    <iconPacks:PackIconMaterial Kind="Speedometer" />
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
         </hc:SideMenu>
