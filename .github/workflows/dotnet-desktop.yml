@@ -17,8 +17,12 @@ jobs:
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-
+    permissions:
+      contents: write
+      deployments: write
+  
     env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       Solution_Name: NetworkTool.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
       Test_Project_Path: your-test-project-path                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
 
@@ -43,5 +47,21 @@ jobs:
       run: dotnet test
 
     # Dotnet build
-    - name: Dotnet Build
-      run: dotnet build
+    - name: Dotnet Build 
+      run: dotnet build --configuration ${{matrix.configuration}}
+
+    # Create release archive
+    - name: Archive Release 
+      if: matrix.configuration == 'Release'
+      uses: thedoctor0/zip-release@0.7.5
+      with:
+        type: 'zip'
+        filename: 'release.zip'
+        directory: 'NetworkTool/bin/Release'
+        
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      if: matrix.configuration == 'Release'
+      with:
+          files: 'NetworkTool/bin/Release/release.zip'
+          tag_name: pre-release
