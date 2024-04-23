@@ -9,6 +9,10 @@ namespace NetworkTool.Utilities
         /// Скорость загрузки в Мбит/с
         /// </summary>
         public double DownloadSpeed { get; private set; }
+        /// <summary>
+        /// Объект WebClient используемый при тестировании
+        /// </summary>
+        public WebClient WebClient { get; private set; }
 
         /// <summary>
         /// Запуск тестирования скорости
@@ -17,16 +21,21 @@ namespace NetworkTool.Utilities
         {
             var watch = new Stopwatch();
 
-            var client = new WebClient();
-            
-            client.DownloadDataCompleted += (s, e) =>
+            WebClient = new WebClient();
+
+            WebClient.DownloadProgressChanged += (s, e) =>
+            {
+
+            };
+
+            WebClient.DownloadDataCompleted += (s, e) =>
             {
                 watch.Stop();
                 DownloadSpeed = Math.Round((e.Result.LongLength * 8) / (1000000 * watch.Elapsed.TotalSeconds), 2);
             };
 
             watch.Start();
-            await client.DownloadDataTaskAsync(new Uri("https://speedtest.selectel.ru/10MB"));
+            await WebClient.DownloadDataTaskAsync(new Uri("https://speedtest.selectel.ru/10MB"));
         }
     }
 }
