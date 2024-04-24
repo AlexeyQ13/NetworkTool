@@ -1,14 +1,17 @@
 # NetworkTool
 <div align="center">
-<img src="https://github.com/AlexeyQ13/NetworkTool/assets/42507256/99f41ed4-ac9d-4ec0-a855-b7f358ab4819">
-  
+<img src="https://github.com/AlexeyQ13/NetworkTool/assets/42507256/4705546b-f5f1-4f0d-bc46-b40b3c285d70">
+
 NetworkTool - инструмент системного администратора для администирования сети и проведения сетевых тестов.
 </div>
 
 ## Функционал
+- Отображение информации об IP адресе
 - Утилита Ping для проверки качества соединения до удалённого сервера
 - Утилита TraceRoute для отслеживания маршрута пакетов
 - Утилита SpeedTest для проверки скорости интернет соединения
+- Возможность ввода IPv4 адреса и домена
+- Экспорт результата
 
 ## Использование
 1. Загрузите последнюю версию из [раздела релизов](https://github.com/AlexeyQ13/NetworkTool/releases)
