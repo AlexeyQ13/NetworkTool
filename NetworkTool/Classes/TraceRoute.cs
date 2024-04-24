@@ -6,7 +6,7 @@ namespace NetworkTool.Classes;
 
 internal class TraceRoute
 {
-    private readonly IPAddress _destinationIpAddress;
+    private readonly string _address;
     private readonly int _timeout;
     private readonly int _maxHops;
 
@@ -14,9 +14,9 @@ internal class TraceRoute
 
     public event EventHandler<TraceRouteHop>? HopReceived;
 
-    public TraceRoute(IPAddress destinationIpAddress, int maxHops = 30, int timeout = 10000)
+    public TraceRoute(string address, int maxHops = 30, int timeout = 10000)
     {
-        _destinationIpAddress = destinationIpAddress;
+        _address = address;
         _timeout = timeout;
         _maxHops = maxHops;
     }
@@ -30,7 +30,7 @@ internal class TraceRoute
             Ttl = ttl
         };
 
-        var response = await ping.SendPingAsync(_destinationIpAddress, _timeout, Buffer, pingOptions);
+        var response = await ping.SendPingAsync(_address, _timeout, Buffer, pingOptions);
 
         return new TraceRouteHop
         {
@@ -43,13 +43,18 @@ internal class TraceRoute
 
     public async Task Trace()
     {
+        var ping = new Ping();
+        var response = await ping.SendPingAsync(_address);
+
+        var ip = response.Address;
+
         for (var ttl = 1; ttl <= _maxHops; ttl++)
         {
             var hop = await TraceRouteAsync(ttl);
             Task.WaitAll();
             HopReceived?.Invoke(this, hop);
 
-            if (Equals(hop.IpAddress, _destinationIpAddress)) break;
+            if (Equals(hop.IpAddress, ip)) break;
         }
     }
 }

@@ -20,23 +20,25 @@ public partial class TraceRoutePage
         var timeout = int.Parse(TimeoutTextBox.Text);
         var maxTtl = int.Parse(TtlTextBox.Text);
 
-        if (!IPAddressHelper.ValidateIP(IpTextBox.Text))
+        // Удаление HTTPS/HTTP 
+        IpTextBox.Text = IpTextBox.Text.Replace("https://", "").Replace("http://", "").TrimEnd('/');
+        var address = IpTextBox.Text;
+
+        if (!IPAddressHelper.ValidateIP(address))
         {
-            HandyControl.Controls.MessageBox.Show("Ошибка IPAddress адреса");
+            MessageBox.Show("Неверный IP адрес или домен");
             IpTextBox.Text = string.Empty;
             IpTextBox.Focus();
             return;
         }
 
-        var ip = IPAddress.Parse(IpTextBox.Text);
-
         var route = new TraceRoute(
-            destinationIpAddress: ip,
+            address: address,
             timeout: timeout,
             maxHops: maxTtl
         );
         route.HopReceived += RouteHopReceived;
-        Task.Run(() =>
+        await Task.Run(() =>
         {
             var task = route.Trace();
             task.Wait();
