@@ -24,6 +24,7 @@
             <!-- Вывод результата -->
             <TextBox Name="OutputTextBox"
                      FontFamily="Lucida Console"
+                     PreviewMouseRightButtonDown="OutputTextBox_OnPreviewMouseRightButtonDown"
                      IsReadOnly="True"
                      Padding="8"
                      VerticalContentAlignment="Top" />
@@ -42,7 +43,7 @@
             <Button x:Name="PingButton"
                     Click="PingButton_Click"
                     Style="{DynamicResource ButtonPrimary}"
-                    Content="Запуск"
+                    Content="Выполнить"
                     IsDefault="True"
                     Margin="0,8,0,0"
                     HorizontalAlignment="Stretch" />

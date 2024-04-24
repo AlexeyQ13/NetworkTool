@@ -25,6 +25,7 @@
 
             <!-- Вывод результата -->
             <TextBox Name="OutputTextBox"
+                     PreviewMouseRightButtonDown="OutputTextBox_OnPreviewMouseRightButtonDown"
                      FontFamily="Lucida Console"
                      IsReadOnly="True"
                      Padding="8"
