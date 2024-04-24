@@ -10,6 +10,7 @@ namespace NetworkTool.Windows;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private IpInfoPage? _ipInfoPage;
     private PingPage? _pingPage;
     private TraceRoutePage? _traceRoutePage;
     private SpeedTestPage? _speedTestPage;
@@ -18,6 +19,12 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = this;
+
+        _ipInfoPage = new IpInfoPage();
+        MainFrame.Navigate(_ipInfoPage);
+
+        var item = MainMenu.Items.FirstOrDefault() as SideMenuItem;
+        item.IsSelected = true;
     }
 
     private void SideMenu_SelectionChanged(object sender, FunctionEventArgs<object> e)
@@ -26,6 +33,10 @@ public partial class MainWindow : Window
 
         switch (item!.Header)
         {
+            case "Информация об IP":
+                _ipInfoPage ??= new IpInfoPage();
+                MainFrame.Navigate(_ipInfoPage);
+                break;
             case "Traceroute":
                 _traceRoutePage ??= new TraceRoutePage();
                 MainFrame.Navigate(_traceRoutePage);
@@ -37,6 +48,8 @@ public partial class MainWindow : Window
             case "SpeedTest":
                 _speedTestPage ??= new SpeedTestPage();
                 MainFrame.Navigate(_speedTestPage);
+                break;
+            case "WHOIS":
                 break;
         }
     }

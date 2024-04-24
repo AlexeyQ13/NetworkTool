@@ -14,27 +14,47 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150px" />
+            <ColumnDefinition Width="180px" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <hc:SideMenu Grid.Column="0"
+                     Name="MainMenu"
+                     BorderBrush="LightGray"
+                     BorderThickness="0,0,1,0"
                      SelectionChanged="SideMenu_SelectionChanged"
                      AutoSelect="True">
-            <hc:SideMenuItem Header="Ping">
+            <hc:SideMenu.Resources>
+                <Style TargetType="hc:SideMenuItem"
+                       BasedOn="{StaticResource SideMenuItemBaseStyle}">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+            </hc:SideMenu.Resources>
+            
+            <hc:SideMenuItem Header="Утилиты">
                 <hc:SideMenuItem.Icon>
-                    <iconPacks:PackIconMaterial Kind="Signal" />
+                    <iconPacks:PackIconMaterial Kind="Wrench"/>
                 </hc:SideMenuItem.Icon>
-            </hc:SideMenuItem>
-            <hc:SideMenuItem Header="Traceroute">
-                <hc:SideMenuItem.Icon>
-                    <iconPacks:PackIconMaterial Kind="MapSearchOutline" />
-                </hc:SideMenuItem.Icon>
-            </hc:SideMenuItem>
-            <hc:SideMenuItem Header="SpeedTest">
-                <hc:SideMenuItem.Icon>
-                    <iconPacks:PackIconMaterial Kind="Speedometer" />
-                </hc:SideMenuItem.Icon>
+                <hc:SideMenuItem Header="Информация об IP">
+                    <hc:SideMenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="IpNetwork" />
+                    </hc:SideMenuItem.Icon>
+                </hc:SideMenuItem>
+                <hc:SideMenuItem Header="Ping">
+                    <hc:SideMenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="Signal" />
+                    </hc:SideMenuItem.Icon>
+                </hc:SideMenuItem>
+                <hc:SideMenuItem Header="Traceroute">
+                    <hc:SideMenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="MapSearchOutline" />
+                    </hc:SideMenuItem.Icon>
+                </hc:SideMenuItem>
+                <hc:SideMenuItem Header="SpeedTest">
+                    <hc:SideMenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="Speedometer" />
+                    </hc:SideMenuItem.Icon>
+                </hc:SideMenuItem>
             </hc:SideMenuItem>
         </hc:SideMenu>
 

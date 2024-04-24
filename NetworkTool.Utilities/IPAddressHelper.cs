@@ -27,11 +27,11 @@ public class IPAddressHelper
 
     /* Получение публичного IP путем запроса на сайт ipinfo */
 
-    public static async Task<IPAddress> GetPublicIP(string serviceUrl = "https://ipinfo.io/ip")
+    public static string GetPublicIP(string serviceUrl = "https://ipinfo.io/ip")
     {
         var httpClient = new HttpClient();
-        var response = await httpClient.GetStringAsync(serviceUrl);
-        return IPAddress.Parse(response);
+        var response = httpClient.GetStringAsync(serviceUrl);
+        return response.Result;
     }
 
     public static async Task<IPAddress?> GetIpByDomain(string domain)
