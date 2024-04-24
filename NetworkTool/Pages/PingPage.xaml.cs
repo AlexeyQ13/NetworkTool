@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Net.NetworkInformation;
-using System.Text.RegularExpressions;
+﻿using System.Net.NetworkInformation;
 using System.Windows;
 using NetworkTool.Utilities;
 
@@ -18,15 +16,18 @@ public partial class PingPage
 
     private async void PingButton_Click(object sender, RoutedEventArgs e)
     {
+        // Обнуление поля вывода результата
+        OutputTextBox.Text = string.Empty;
+
         // Удаление HTTPS/HTTP 
         IpTextBox.Text = IpTextBox.Text.Replace("https://", "").Replace("http://", "").TrimEnd('/');
         var ip = IpTextBox.Text;
 
-        if (!IPAddressHelper.ValidateIP(ip)) 
+        if (!IPAddressHelper.ValidateIP(ip))
+        {
             MessageBox.Show("Неверный IP адрес или домен");
-
-        // Обнуление поля вывода результата
-        OutputTextBox.Text = string.Empty;
+            return;
+        }
 
         using var ping = new Ping();
         var received = 0;
